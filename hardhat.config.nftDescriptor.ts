@@ -11,28 +11,19 @@ import "@daoleno/uniswap-v3-deploy-plugin";
 
 
 const chainIds = {
-  ganache: 1337,
-  goerli: 5,
+  mumbai: 80001,
+  mainnet: 137,
   hardhat: 31337,
-  kovan: 42,
-  mainnet: 1,
-  rinkeby: 4,
-  ropsten: 3,
 };
 
+const PRIVATE_KEY = process.env.PRIVATE_KEY || "";
 const MNEMONIC = process.env.MNEMONIC || "";
-const INFURA_API_KEY = process.env.INFURA_API_KEY || "";
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "";
 
 function createTestnetConfig(network: keyof typeof chainIds): NetworkUserConfig {
-  const url: string = "https://" + network + ".infura.io/v3/" + INFURA_API_KEY;
+  const url: string = "https://rpc-" + network + ".maticvigil.com";
   return {
-    accounts: {
-      count: 10,
-      initialIndex: 0,
-      mnemonic: MNEMONIC,
-      path: "m/44'/60'/0'/0",
-    },
+    accounts: [PRIVATE_KEY],
     chainId: chainIds[network],
     url,
   };
@@ -42,7 +33,7 @@ function createTestnetConfig(network: keyof typeof chainIds): NetworkUserConfig 
 // Go to https://hardhat.org/config/ to learn more
 
 const config: HardhatUserConfig = {
-  defaultNetwork: "hardhat",
+  defaultNetwork: "mumbai",
   networks: {
     hardhat: {
       accounts: {
@@ -51,10 +42,7 @@ const config: HardhatUserConfig = {
       chainId: chainIds.hardhat,
     },
     mainnet: createTestnetConfig("mainnet"),
-    goerli: createTestnetConfig("goerli"),
-    kovan: createTestnetConfig("kovan"),
-    rinkeby: createTestnetConfig("rinkeby"),
-    ropsten: createTestnetConfig("ropsten"),
+    mumbai: createTestnetConfig("mumbai"),
   },
   solidity: {
     compilers: [
