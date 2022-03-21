@@ -43,9 +43,7 @@ const config: HardhatUserConfig = {
       chainId: chainIds.hardhat,
     },
     fantom: {
-      accounts: {
-        mnemonic: [PRIVATE_KEY],
-      },
+      accounts: [PRIVATE_KEY],
       chainId: chainIds.fantom,
       url: "https://rpc.testnet.fantom.network/",
     },
