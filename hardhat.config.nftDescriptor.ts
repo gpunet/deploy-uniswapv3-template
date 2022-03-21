@@ -14,6 +14,7 @@ const chainIds = {
   mumbai: 80001,
   mainnet: 137,
   hardhat: 31337,
+  fantom: 4002,
 };
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY || "";
@@ -40,6 +41,13 @@ const config: HardhatUserConfig = {
         mnemonic: MNEMONIC,
       },
       chainId: chainIds.hardhat,
+    },
+    fantom: {
+      accounts: {
+        mnemonic: [PRIVATE_KEY],
+      },
+      chainId: chainIds.fantom,
+      url: "https://rpc.testnet.fantom.network/",
     },
     mainnet: createTestnetConfig("mainnet"),
     mumbai: createTestnetConfig("mumbai"),
